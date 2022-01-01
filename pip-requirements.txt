@@ -1,0 +1,9 @@
+ipykernel
+matplotlib
+pyyaml
+pandas
+openpyxl
+halo
+baostock
+ipywidgets
+torch
