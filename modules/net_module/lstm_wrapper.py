@@ -4,7 +4,7 @@ from torch import nn
 
 class LSTM(nn.Module):
 
-    def __init__(self, window_size: int = 20):
+    def __init__(self):
         super().__init__()
 
         hid_size = 20
@@ -12,7 +12,7 @@ class LSTM(nn.Module):
         self.rnn = nn.LSTM(
             input_size=5, 
             hidden_size=hid_size,
-            num_layers=2,
+            num_layers=1,
             batch_first=True,
         )
         self.reg = nn.Sequential(

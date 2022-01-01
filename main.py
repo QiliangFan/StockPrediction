@@ -20,7 +20,7 @@ def main():
         train_len = round(length * 0.8) 
         train_dt = dt[:train_len]
         test_dt = dt[(train_len-WINDOW_SIZE+1):]
-        lstm = LSTM(window_size=WINDOW_SIZE)
+        lstm = LSTM()
         optim = torch.optim.AdamW(lstm.parameters(), lr=1e-4)
         # criterion = nn.MSELoss()
         criterion = nn.SmoothL1Loss()
@@ -32,15 +32,26 @@ def main():
         test_data = DataLoader(test_data, batch_size=1, pin_memory=True, num_workers=4)
 
         ground_truth = dt[WINDOW_SIZE:len(dt)-1].iloc[:, 2]
-        train_outputs = train_step(lstm, optim, train_data, criterion)
-        test_outputs = test_step(lstm, test_data)
-        with open("temp.txt", "w") as fp:
-            print(*test_outputs, sep="\n", file=fp)
 
+        # lstm
+        # train_outputs = train_step(lstm, optim, train_data, criterion)
+        # test_outputs = test_step(lstm, test_data)
+        # with open("temp.txt", "w") as fp:
+        #     print(*test_outputs, sep="\n", file=fp)
+
+        # plot(ground_truth, train_outputs + test_outputs, train_len - WINDOW_SIZE)
+
+
+        # gan
+        from modules.net_module.gan import GAN
+        gan = GAN(window_size=WINDOW_SIZE, epoch=200)
+        train_outputs = gan.train(train_data)
+        test_outputs = gan.test(test_data)
         plot(ground_truth, train_outputs + test_outputs, train_len - WINDOW_SIZE)
         
         
 if __name__ == "__main__":
+    # comp_idxs = ["000590.SZ", "000591.SZ", "000592.SZ"]
     comp_idxs = ["000590.SZ"]
     config = yaml.load(open("config.yaml", "r"), Loader=yaml.FullLoader)
     data_root = config["data"]["root"]

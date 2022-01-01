@@ -4,7 +4,7 @@ from torch import nn
 from typing import Tuple, cast
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-EPOCHS = 200
+EPOCHS = 100
 
 def train_step(net: nn.Module, opt: torch.optim.Optimizer, data_loader: DataLoader, criterion: nn.Module):
     outputs = []
