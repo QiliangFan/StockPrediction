@@ -2,6 +2,11 @@
 
 ## 1. 运行方式:hammer:：
 
+```bash
+# requirements
+pip3 install -r pip-requirements.txt
+```
+
 ```python3
 # for lstm
 python3 main.py --method lstm
