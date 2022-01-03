@@ -18,4 +18,4 @@ sh run.sh
 
 ## 2. 配置 :gear:
 
-修改`config.yaml`中的数据集路径，数据集可以从获取。
+修改`config.yaml`中的数据集路径，数据集可以从[google drive](https://drive.google.com/drive/folders/1PirLlvWiuZ8posgI1IKL_ljIBQ9HGUkS?usp=sharing)获取。
