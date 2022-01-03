@@ -7,3 +7,4 @@ halo
 baostock
 ipywidgets
 torch
+ptflops

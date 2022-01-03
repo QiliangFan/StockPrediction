@@ -7,6 +7,10 @@ import pandas as pd
 class Data(Dataset):
 
     def __init__(self, dt: pd.DataFrame, window_size: int = 20):
+        """
+        feature:
+        "收盘价", "开盘价", "最高价", "最低价", "成交量"
+        """
         super().__init__()
         self.values = torch.from_numpy(dt.iloc[:, 2:].values).type(dtype=torch.float32)
         self.window_size = window_size

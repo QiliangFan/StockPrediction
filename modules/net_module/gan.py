@@ -4,6 +4,8 @@ from torch._C import device
 from .lstm_wrapper import LSTM
 from tqdm import tqdm
 from torch.utils.data import DataLoader
+from ptflops import get_model_complexity_info
+
 
 class GAN:
 
@@ -64,6 +66,7 @@ class GAN:
 
     def test(self, data: DataLoader):
         outputs = []
+        test_x = []
         for x, y in tqdm(data):
             if torch.cuda.is_available():
                 x = x.cuda()
@@ -71,5 +74,6 @@ class GAN:
             out, _ = self.generator(x)
             with torch.no_grad():
                 outputs.extend(out[:, -1].cpu().detach().squeeze(dim=1).numpy().tolist())
+                test_x.extend(x[:, -1].cpu().detach().numpy().tolist())
 
-        return outputs
+        return outputs, test_x

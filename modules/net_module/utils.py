@@ -37,6 +37,7 @@ def train_step(net: nn.Module, opt: torch.optim.Optimizer, data_loader: DataLoad
 @torch.no_grad()
 def test_step(net: nn.Module, data_loader: DataLoader):
     outputs = []
+    test_x = []
     if torch.cuda.is_available():
         net.cuda()
     for x, y in tqdm(data_loader, total=len(data_loader), desc="Testing..."):
@@ -48,5 +49,6 @@ def test_step(net: nn.Module, data_loader: DataLoader):
 
         with torch.no_grad():
             outputs.extend(out[:, -1].cpu().detach().squeeze(dim=1).numpy().tolist())
+            test_x.extend(x[:, -1].cpu().detach().numpy().tolist())
 
-    return outputs
+    return outputs, test_x
